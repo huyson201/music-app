@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+    --sidebar-width: 280px;
+    --close-sidebar-width: 72px;
+}
+
+body{
+    @apply font-body-font-family text-body-color;
+}
+/* sidebar nav link */
