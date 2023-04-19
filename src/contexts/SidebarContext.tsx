@@ -16,14 +16,14 @@ export const useSidebar = () => React.useContext(SidebarContext)
 
 
 const SidebarProvider = ({ children }: ContextProviderProps) => {
-    const [isClose, setIsClose] = useState<boolean>(false)
+    const [isClose, setIsClose] = useState<boolean>(true)
 
     const closeSidebar = useCallback(() => {
-        setIsClose(false)
+        setIsClose(true)
     }, [isClose])
 
     const openSidebar = useCallback(() => {
-        setIsClose(true)
+        setIsClose(false)
     }, [isClose])
 
     return (

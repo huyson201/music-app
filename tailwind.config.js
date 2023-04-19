@@ -23,13 +23,17 @@ export default {
       },
       fontFamily: {
         "body-font-family": "Open Sans,sans-serif",
-        "font-sans-serif": 'system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"'
+        "roboto": '"Roboto Slab",serif'
       },
       gradientColorStopPositions: {
         0: "0"
       },
       screens: {
         "xs": "480px"
+      },
+      backgroundImage: {
+        "hero": "url('/images/home.jpg')",
+        "footer": "url('/images/footer.jpg')"
       }
     },
   },

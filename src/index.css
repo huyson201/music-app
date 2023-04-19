@@ -10,4 +10,18 @@
 body{
     @apply font-body-font-family text-body-color;
 }
-/* sidebar nav link */
+
+.slice-list:hover .next-btn,
+.slice-list:hover .prev-btn{
+    @apply opacity-100;
+}
+
+.swiper-pagination-bullet{
+    border-radius: 1px;
+    @apply w-6 h-1;
+    
+}
+
+.swiper-pagination-bullet-active{
+    @apply bg-primary;
+}

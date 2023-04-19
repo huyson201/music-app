@@ -11,14 +11,14 @@ const Header = (props: Props) => {
     const sidebar = useSidebar()
     return (
         <header className={classNames(`
-            fixed top-0 left-0 w-full px-5 py-4 z-[2]
+            fixed top-0 left-0 w-full  py-4 z-[2]
             lg:right-0 lg:left-auto
             lg:w-[calc(100%_-_var(--close-sidebar-width))] [&.side-open]:lg:w-[calc(100%_-_var(--sidebar-width))]
         `, { "side-open": !sidebar.isClose })}>
             <Wrapper>
                 <div className='bg-primary text-white px-6 py-2 rounded'>
                     <div className='flex items-center gap-x-4'>
-                        <button className='text-2xl lg:hidden'>
+                        <button className='text-2xl lg:hidden' onClick={() => sidebar.openSidebar()}>
                             <RiMenu3Line />
                         </button>
                         <div className='flex items-center grow basis-0 min-w-0'>
