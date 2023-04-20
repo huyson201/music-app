@@ -33,7 +33,7 @@ const ListArtist = (props: Props) => {
 
                 }}
                 spaceBetween={16}
-                onSlideChange={() => console.log('slide change')}
+
             >
 
                 <SwiperSlide><ArtistSlice /></SwiperSlide>

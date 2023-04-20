@@ -5,6 +5,7 @@ import Wrapper from '../../components/Wrapper/Wrapper'
 import SlideList from '../../components/SliceList/SlideList'
 import ListArtist from '../../components/ListArtist/ListArtist'
 import TopAlbum from '../../components/TopAlbum/TopAlbum'
+import TrendingTrackTab from '../../components/TrendingTrackTab/TrendingTrackTab'
 
 interface Props { }
 
@@ -33,8 +34,11 @@ const Home = (props: Props) => {
                     <SlideList />
                 </div>
 
+                {/* trending track tab */}
+                <TrendingTrackTab />
+
                 {/* new release */}
-                <div className='mt-32'>
+                <div className='mt-24'>
                     <div className='relative -mt-12 mb-8'>
                         <div className='uppercase text-body-color font-semibold text-xs mb-1'>new to listen</div>
                         <h3 className='flex items-center'>
@@ -50,7 +54,7 @@ const Home = (props: Props) => {
                     <SlideList />
                 </div>
                 {/* artists */}
-                <div className='mt-32'>
+                <div className='mt-24'>
                     <div className='relative -mt-12 mb-8'>
                         <div className='uppercase text-body-color font-semibold text-xs mb-1'>Best to listen</div>
                         <h3 className='flex items-center'>
@@ -66,7 +70,7 @@ const Home = (props: Props) => {
                     <ListArtist />
                 </div>
                 {/* album */}
-                <div className='mt-32'>
+                <div className='mt-24'>
                     <div className='relative -mt-12 mb-8'>
                         <div className='uppercase text-body-color font-semibold text-xs mb-1'>TRENDING TO LISTEN</div>
                         <h3 className='flex items-center'>

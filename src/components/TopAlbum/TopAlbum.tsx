@@ -6,12 +6,22 @@ type Props = {}
 
 const TopAlbum = (props: Props) => {
     return (
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-x-8 '>
-            {
-                new Array(20).fill(0).map((_, index) => {
-                    return <TopAlbumItem counter={index} key={index.toString()} />
-                })
-            }
+        <div className='flex lg:flex-row flex-col gap-x-8 '>
+            <div className='lg:w-2/4'>
+                {
+                    new Array(5).fill(0).map((_, index) => {
+                        return <TopAlbumItem counter={index + 1} key={index.toString()} />
+                    })
+                }
+            </div>
+            <div className='lg:w-2/4'>
+                {
+                    new Array(5).fill(0).map((_, index) => {
+                        return <TopAlbumItem counter={index + 6} key={index.toString()} />
+                    })
+                }
+            </div>
+
         </div>
     )
 }

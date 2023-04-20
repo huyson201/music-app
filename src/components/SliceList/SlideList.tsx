@@ -34,7 +34,7 @@ const SlideList = (props: Props) => {
 
                 }}
                 spaceBetween={24}
-                onSlideChange={() => console.log('slide change')}
+
             >
 
                 <SwiperSlide><SliceCover /></SwiperSlide>

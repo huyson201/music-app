@@ -12,7 +12,7 @@ const LeftSide = (props: Props) => {
         <aside className={classNames(`
             fixed top-0 left-0 h-screen bg-bg-sidebar w-[var(--sidebar-width)] text-body-color overflow-hidden
             flex flex-col
-            z-[3]
+            z-[10]
             lg:[&.close]:w-[var(--close-sidebar-width)]
             transition-all duration-300
             group
@@ -22,8 +22,8 @@ const LeftSide = (props: Props) => {
             <div className='flex items-center justify-between lg:group-[.close]:justify-center px-4 pt-6 pb-12 max-h-[116px]'>
                 <Link to={"#"} className='lg:group-[.close]:hidden'> <img className='w-[104px]' src="/images/logo.svg" alt="logo" /></Link>
                 <button className='text-2xl' onClick={() => sidebar.toggle()}>
-                    <RiMenu3Fill className='hidden lg:group-[.close]:block' />
-                    <RiMenuLine className='hidden lg:block lg:group-[.close]:hidden' />
+                    <RiMenu3Fill className='hidden lg:block lg:group-[.close]:hidden ' />
+                    <RiMenuLine className='hidden lg:group-[.close]:block' />
                     <RiMenuFoldLine className='block lg:hidden' />
                 </button>
             </div>
