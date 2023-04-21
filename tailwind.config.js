@@ -33,6 +33,7 @@ export default {
       },
       backgroundImage: {
         "hero": "url('/images/home.jpg')",
+        "artist-hero": "url('/images/bg-artist.jpg')",
         "footer": "url('/images/footer.jpg')"
       }
     },

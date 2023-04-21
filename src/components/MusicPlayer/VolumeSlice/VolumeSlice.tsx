@@ -31,7 +31,7 @@ const VolumeSlice = (props: Props) => {
         }
     }, [])
     return (
-        <div className='relative' ref={containerRef}>
+        <div className='relative hidden sm:block' ref={containerRef}>
             <button onClick={handleClickVolume} className='p-2 text-xl text-dark'><RiVolumeDownFill /></button>
             <div className={classNames('absolute hidden [&.active]:block  z-[2] top-0 left-0 -rotate-90 origin-top -translate-x-2/4 -translate-y-[calc(100%_+_16px)] ', { active })}>
                 <div className='w-28 bg-white shadow-[0_0_3rem_0_rgba(21,23,25,.25)] rounded flex items-center justify-center p-4'>

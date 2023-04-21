@@ -6,16 +6,14 @@ import SlideList from '../../components/SliceList/SlideList'
 import ListArtist from '../../components/ListArtist/ListArtist'
 import TopAlbum from '../../components/TopAlbum/TopAlbum'
 import TrendingTrackTab from '../../components/TrendingTrackTab/TrendingTrackTab'
+import Hero from '../../components/Hero/Hero'
 
 interface Props { }
 
 const Home = (props: Props) => {
     return (
         <>
-            <div className='
-            w-full h-80 bg-hero bg-cover bg-center relative
-            after:content-[""] after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-t
-            after:from-[#fff] after:to-[#ffffff3b] ' ></div>
+            <Hero className='bg-hero' />
             <Wrapper>
                 {/* chart */}
                 <div >
@@ -35,7 +33,19 @@ const Home = (props: Props) => {
                 </div>
 
                 {/* trending track tab */}
-                <TrendingTrackTab />
+                <div className='mt-24'>
+                    <div className='relative -mt-12 mb-4'>
+                        <div className='uppercase text-body-color font-semibold text-xs mb-1'>top to listen</div>
+                        <h3 className='flex items-center'>
+                            <div className='grow basis-0 text-[28px] font-bold capitalize'>
+                                <span className='text-dark font-roboto '>music </span>
+                                <span className='text-primary'>tracks</span>
+                            </div>
+
+                        </h3>
+                    </div>
+                    <TrendingTrackTab />
+                </div>
 
                 {/* new release */}
                 <div className='mt-24'>
@@ -53,22 +63,7 @@ const Home = (props: Props) => {
                     </div>
                     <SlideList />
                 </div>
-                {/* artists */}
-                <div className='mt-24'>
-                    <div className='relative -mt-12 mb-8'>
-                        <div className='uppercase text-body-color font-semibold text-xs mb-1'>Best to listen</div>
-                        <h3 className='flex items-center'>
-                            <div className='grow basis-0 text-[28px] font-bold capitalize'>
-                                <span className='text-dark font-roboto '>featured </span>
-                                <span className='text-primary'>Artists</span>
-                            </div>
-                            <Link to="#" className='
-                        font-semibold text-[13px] text-primary uppercase pb-0.5 relative
-                        before:content-[""] before:absolute before:w-full before:h-[2px] before:bottom-0 before:bg-primary'>VIEW ALL</Link>
-                        </h3>
-                    </div>
-                    <ListArtist />
-                </div>
+
                 {/* album */}
                 <div className='mt-24'>
                     <div className='relative -mt-12 mb-8'>
@@ -84,6 +79,23 @@ const Home = (props: Props) => {
                         </h3>
                     </div>
                     <TopAlbum />
+                </div>
+
+                {/* artists */}
+                <div className='mt-24'>
+                    <div className='relative -mt-12 mb-8'>
+                        <div className='uppercase text-body-color font-semibold text-xs mb-1'>Best to listen</div>
+                        <h3 className='flex items-center'>
+                            <div className='grow basis-0 text-[28px] font-bold capitalize'>
+                                <span className='text-dark font-roboto '>featured </span>
+                                <span className='text-primary'>Artists</span>
+                            </div>
+                            <Link to="#" className='
+                        font-semibold text-[13px] text-primary uppercase pb-0.5 relative
+                        before:content-[""] before:absolute before:w-full before:h-[2px] before:bottom-0 before:bg-primary'>VIEW ALL</Link>
+                        </h3>
+                    </div>
+                    <ListArtist />
                 </div>
             </Wrapper>
         </>

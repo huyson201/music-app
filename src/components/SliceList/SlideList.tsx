@@ -45,12 +45,12 @@ const SlideList = (props: Props) => {
                 <SwiperSlide><SliceCover /></SwiperSlide>
             </Swiper>
             <div ref={navigationNextRef} onClick={() => swiperRef.current?.slideNext()}
-                className='absolute next-btn  w-10 h-10 bg-white z-[1] opacity-0 group-hover:opacity-100
-                    transition-all duration-300 rounded-full translate-x-2/4 flex justify-center text-2xl shadow-[0px_2px_4px_0px_rgba(0,0,0,0.2)] hover:shadow-[0px_2px_4px_rgba(0,0,0,0.4)] items-center
+                className='absolute sm:flex next-btn  w-10 h-10 bg-white z-[1] opacity-0 group-hover:opacity-100
+                    transition-all duration-300 rounded-full translate-x-2/4 hidden justify-center text-2xl shadow-[0px_2px_4px_0px_rgba(0,0,0,0.2)] hover:shadow-[0px_2px_4px_rgba(0,0,0,0.4)] items-center
                      cursor-pointer top-2/4 right-0 -translate-y-full '><RiArrowRightSLine /></div>
             <div ref={navigationPrevRef} onClick={() => swiperRef.current?.slidePrev()}
-                className='absolute prev-btn w-10 h-10 bg-white z-[1] opacity-0 group-hover:opacity-100 
-                     transition-all duration-300 rounded-full -translate-x-2/4 flex justify-center text-2xl shadow-[0px_2px_4px_0px_rgba(0,0,0,0.2)] hover:shadow-[0px_2px_4px_rgba(0,0,0,0.4)] items-center
+                className='absolute sm:flex prev-btn w-10 h-10 bg-white z-[1] opacity-0 group-hover:opacity-100 
+                     transition-all duration-300 rounded-full -translate-x-2/4 hidden justify-center text-2xl shadow-[0px_2px_4px_0px_rgba(0,0,0,0.2)] hover:shadow-[0px_2px_4px_rgba(0,0,0,0.4)] items-center
                       cursor-pointer top-2/4 left-0 -translate-y-full'><RiArrowLeftSLine /> </div>
         </div>
     )
