@@ -34,6 +34,7 @@ export default {
       backgroundImage: {
         "hero": "url('/images/home.jpg')",
         "artist-hero": "url('/images/bg-artist.jpg')",
+        "song-hero": "url('/images/bg-song.jpg')",
         "footer": "url('/images/footer.jpg')"
       }
     },

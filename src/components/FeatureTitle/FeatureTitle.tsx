@@ -15,7 +15,6 @@ const FeatureTitle = ({ smallTitle, darkWord, primaryWord }: Props) => {
                     <span className='text-dark font-roboto '>{darkWord}</span>
                     <span className='text-primary'>{primaryWord}</span>
                 </div>
-
             </h3>
         </div>
     )

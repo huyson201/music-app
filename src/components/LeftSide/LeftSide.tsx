@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import React, { useState } from 'react'
-import { RiMenu3Fill, RiHome4Line, RiDiscLine, RiMusic2Line, RiAlbumLine, RiMicLine, RiPieChartLine, RiHeartLine, RiHistoryLine, RiMenuLine, RiMenuFoldLine } from 'react-icons/ri'
+import { RiMenu3Fill, RiHome4Line, RiDiscLine, RiMusic2Line, RiAlbumLine, RiMicLine, RiPieChartLine, RiHeartLine, RiHistoryLine, RiMenuLine, RiMenuFoldLine, RiPlayListFill } from 'react-icons/ri'
 import { Link, NavLink } from 'react-router-dom'
 import { useSidebar } from '../../contexts/SidebarContext'
 type Props = {}
@@ -30,17 +30,14 @@ const LeftSide = (props: Props) => {
             <div className='h-[calc(100%_-_116px)] w-full'>
                 <SideOption isClose={sidebar.isClose} icon={<RiHome4Line className='text-xl' />} title='Home' to='/' />
                 <SideOption isClose={sidebar.isClose} icon={<RiDiscLine className='text-xl' />} title='Genres' to='/genres' />
-                <SideOption isClose={sidebar.isClose} icon={<RiMusic2Line className='text-xl' />} title='Free Music' to='/free-music' />
-                <SideOption isClose={sidebar.isClose} icon={<RiAlbumLine className='text-xl' />} title='Albums' to='/album' />
-                <SideOption isClose={sidebar.isClose} icon={<RiMicLine className='text-xl' />} title='Artists' to='/artist' />
+                <SideOption isClose={sidebar.isClose} icon={<RiMicLine className='text-xl' />} title='Artists' to='/artists' />
                 <div className='text-[#8c9095] px-6 pt-6 pb-4 font-medium text-sm w-full'>
                     <span className='lg:group-[.close]:hidden'>Music</span>
                     <span className='hidden text-base  text-center lg:group-[.close]:inline'>...</span>
                 </div>
-                <SideOption isClose={sidebar.isClose} icon={<RiPieChartLine className='text-xl' />} title='Artists' to='/artist' />
-                <SideOption isClose={sidebar.isClose} icon={<RiMicLine className='text-xl' />} title='Analytics' to='/analytics' />
+                <SideOption isClose={sidebar.isClose} icon={<RiPlayListFill className='text-xl' />} title='playlist' to='/playlist' />
                 <SideOption isClose={sidebar.isClose} icon={<RiHeartLine className='text-xl' />} title='Favorites' to='/favorites' />
-                <SideOption isClose={sidebar.isClose} icon={<RiHistoryLine className='text-xl' />} title='HistoryL' to='/history' />
+                <SideOption isClose={sidebar.isClose} icon={<RiHistoryLine className='text-xl' />} title='History' to='/history' />
             </div>
         </aside>
     )

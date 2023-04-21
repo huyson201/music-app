@@ -1,20 +1,40 @@
 import React from 'react'
 import { RiArrowLeftSLine, RiArrowRightSLine, RiHeartFill, RiMore2Fill, RiPlayFill } from 'react-icons/ri';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Autoplay, Swiper as SwiperType, Navigation } from 'swiper'
+import SwiperCore, { Autoplay, Swiper as SwiperType, Navigation, } from 'swiper'
 type Props = {}
 
 SwiperCore.use([Autoplay])
 
 const SlideList = (props: Props) => {
-    const navigationPrevRef = React.useRef(null)
-    const navigationNextRef = React.useRef(null)
+    const navigationPrevRef = React.useRef<HTMLDivElement>(null)
+    const navigationNextRef = React.useRef<HTMLDivElement>(null)
     const swiperRef = React.useRef<SwiperType>();
+
+    const handleSlideChange = (swiper: SwiperCore) => {
+        if (!navigationNextRef.current || !navigationPrevRef.current) return
+
+        if (swiper.isEnd) {
+            navigationNextRef.current.classList.add("end")
+        }
+        else {
+            navigationNextRef.current.classList.remove("end")
+        }
+
+        if (swiper.isBeginning) {
+            navigationPrevRef.current.classList.add("start")
+        } else {
+            navigationPrevRef.current.classList.remove("start")
+        }
+    };
+
+
     return (
         <div className='relative slice-list'>
             <Swiper
                 slidesPerView={2}
                 modules={[Navigation]}
+                onSlideChange={handleSlideChange}
                 onBeforeInit={(swiper) => {
                     swiperRef.current = swiper;
                 }}
@@ -45,12 +65,12 @@ const SlideList = (props: Props) => {
                 <SwiperSlide><SliceCover /></SwiperSlide>
             </Swiper>
             <div ref={navigationNextRef} onClick={() => swiperRef.current?.slideNext()}
-                className='absolute sm:flex next-btn  w-10 h-10 bg-white z-[1] opacity-0 group-hover:opacity-100
-                    transition-all duration-300 rounded-full translate-x-2/4 hidden justify-center text-2xl shadow-[0px_2px_4px_0px_rgba(0,0,0,0.2)] hover:shadow-[0px_2px_4px_rgba(0,0,0,0.4)] items-center
-                     cursor-pointer top-2/4 right-0 -translate-y-full '><RiArrowRightSLine /></div>
+                className='absolute sm:[&.end]:hidden sm:flex hidden next-btn  w-10 h-10 bg-white z-[1] opacity-0 group-hover:opacity-100
+                    transition-all duration-300 rounded-full translate-x-2/4  justify-center text-2xl shadow-[0px_2px_4px_0px_rgba(0,0,0,0.2)] hover:shadow-[0px_2px_4px_rgba(0,0,0,0.4)] items-center
+                     cursor-pointer top-2/4 right-0 -translate-y-full'><RiArrowRightSLine /></div>
             <div ref={navigationPrevRef} onClick={() => swiperRef.current?.slidePrev()}
-                className='absolute sm:flex prev-btn w-10 h-10 bg-white z-[1] opacity-0 group-hover:opacity-100 
-                     transition-all duration-300 rounded-full -translate-x-2/4 hidden justify-center text-2xl shadow-[0px_2px_4px_0px_rgba(0,0,0,0.2)] hover:shadow-[0px_2px_4px_rgba(0,0,0,0.4)] items-center
+                className='absolute sm:[&.start]:hidden sm:flex hidden prev-btn w-10 h-10 bg-white z-[1] opacity-0 group-hover:opacity-100 
+                     transition-all duration-300 rounded-full -translate-x-2/4  justify-center text-2xl shadow-[0px_2px_4px_0px_rgba(0,0,0,0.2)] hover:shadow-[0px_2px_4px_rgba(0,0,0,0.4)] items-center
                       cursor-pointer top-2/4 left-0 -translate-y-full'><RiArrowLeftSLine /> </div>
         </div>
     )
