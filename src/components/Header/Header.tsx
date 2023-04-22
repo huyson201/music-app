@@ -1,9 +1,11 @@
 import classNames from 'classnames'
 import React, { useEffect, useRef, useState } from 'react'
 import Wrapper from '../Wrapper/Wrapper'
-import { RiHeartLine, RiLogoutCircleLine, RiMenu3Line, RiSearch2Line, RiSettingsLine, RiUser3Line } from 'react-icons/ri'
+import { RiHeartLine, RiLoginCircleLine, RiLogoutCircleLine, RiMenu3Line, RiSearch2Line, RiSettingsLine, RiUser3Line } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 import { useSidebar } from '../../contexts/SidebarContext'
+import { useAuth } from '../../contexts/AuthContext'
+import configs from '../../services/apiConfig'
 
 type Props = {}
 
@@ -40,10 +42,13 @@ const Header = (props: Props) => {
 }
 
 const UserMenu = () => {
+    const auth = useAuth()
     const [activeDrop, setActiveDrop] = useState<boolean>(false)
     const dropRef = useRef<HTMLDivElement>(null)
 
+    // handle click outside
     useEffect(() => {
+
         const handleClickOutside = (e: any) => {
             if (!dropRef.current) return
             if (!dropRef.current.contains(e.target)) {
@@ -58,20 +63,35 @@ const UserMenu = () => {
             window.removeEventListener("click", handleClickOutside)
         }
     }, [])
+
+    const handleLogin = () => {
+        window.open(`https://www.last.fm/api/auth?api_key=${configs.api_key}&cb=${import.meta.env.VITE_WEB_URL}/auth`, "_self")
+    }
+
+
+    if (!auth.isAuthenticated()) {
+        return (
+            <button className="flex items-center" onClick={handleLogin}>
+                <RiLoginCircleLine className='text-xl' />
+                <span className="text-sm ml-1 font-semibold">Login</span>
+            </button>
+        )
+    }
+
     return (
         <div ref={dropRef} className={classNames('relative group', { active: activeDrop })}>
             <div className='flex items-center cursor-pointer' onClick={() => setActiveDrop(prev => !prev)}>
-                <img className='rounded-full w-8 h-8 object-cover' src="/images/avatar.jpg" alt="artist-avatar" />
-                <span className='pl-2 text-sm hidden xs:inline'>Androws</span>
+                <img className='rounded-full w-8 h-8 object-cover' src={auth.auth?.profile?.image[1]['#text'] || auth.auth?.profile?.image[0]['#text'] || "/images/avatar.jpg"} alt={auth.auth?.profile?.realname || "avatar"} />
+                <span className='pl-2 text-sm hidden xs:inline'>{auth.auth?.profile?.realname || ""}</span>
             </div>
             {/* drop content */}
             <div className='hidden group-[.active]:block absolute top-[calc(100%_+_4px)] right-0 text-body-color bg-white shadow-md w-[224px] rounded-md py-2'>
                 {/* user name */}
                 <div className='flex px-4 py-2 items-center gap-x-3'>
-                    <img className='w-12 h-12 rounded-full object-cover' src="/images/avatar.jpg" alt="user-avatar" />
+                    <img className='w-12 h-12 rounded-full object-cover' src={auth.auth?.profile?.image[1]['#text'] || auth.auth?.profile?.image[0]['#text'] || "/images/avatar.jpg"} alt={auth.auth?.profile?.realname || "avatar"} />
                     <div>
-                        <div className='text-sm font-medium text-color-text'>Androws Kinny</div>
-                        <div className='text-[13px] text-[#737578]'>Artist</div>
+                        <div className='text-sm font-medium text-color-text'>{auth.auth?.profile?.realname || ""}</div>
+                        <div className='text-[13px] text-[#737578]'>{auth.auth?.profile?.type || ""}</div>
                     </div>
                 </div>
                 {/* user option */}
