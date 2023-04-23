@@ -12,20 +12,12 @@ interface SidebarContext {
 // auth context define
 interface AuthState {
     isLogged: boolean,
-    profile: AuthProfile | null,
-    session: AuthSession | null,
-    token: string | null
+    profile: AuthProfile | null
+}
 
-}
-interface AuthSession {
-    key: string
-    name: string
-    subscriber: number,
-    token: string | null
-}
 interface AuthContext {
     auth: AuthState | null,
-    login: (token: string) => Promise<{ session: AuthSession, profile: AuthProfile }>,
+    login: (token: string) => Promise<any>,
     logout: () => void,
     isAuthenticated: () => boolean
 

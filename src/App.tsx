@@ -9,11 +9,10 @@ import BackDrop from './components/Backdrop/BackDrop'
 import MusicPlayer from './components/MusicPlayer/MusicPlayer'
 import axios from 'axios'
 import md5 from 'md5'
-import lastFmService from './services/lastFmService'
+import lastFmService from './services/apiServices'
 
 
 function App() {
-  const [searchParams, setSearchPrams] = useSearchParams()
   return (
     <div className="App">
       <ContextProvider>

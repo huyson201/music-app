@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Wrapper from '../../components/Wrapper/Wrapper'
 import SlideList from '../../components/SliceList/SlideList'
@@ -8,10 +8,16 @@ import TopAlbum from '../../components/TopAlbum/TopAlbum'
 import TrendingTrackTab from '../../components/TrendingTrackTab/TrendingTrackTab'
 import Hero from '../../components/Hero/Hero'
 import MainContentWrapper from '../../components/MainContentWrapper/MainContentWrapper'
+import { useAuth } from '../../contexts/AuthContext'
+import apiService from '../../services/apiServices'
 
 interface Props { }
 
 const Home = (props: Props) => {
+    const auth = useAuth()
+    useEffect(() => {
+        apiService.album.getNewRelease().then(res => console.log(res.data))
+    }, [])
     return (
         <MainContentWrapper heroClass='bg-hero'>
             {/* chart */}

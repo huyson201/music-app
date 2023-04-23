@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from 'react'
-import lastFmService from '../services/lastFmService'
+import apiServices from '../services/apiServices'
+import { AxiosResponse } from 'axios'
+import { AUTH_STORE_KEY, TOKEN_STORE_KEY } from '../data/constants'
 
 
 const AuthContext = React.createContext<AuthContext>({
@@ -17,13 +19,13 @@ const AuthContext = React.createContext<AuthContext>({
 
 export const useAuth = () => React.useContext(AuthContext)
 
-let callGetSession: any | null = null
+let callGetSession: Promise<AxiosResponse<TokenResponse, any>> | null = null
 
 export default function AuthProvider({ children }: ContextProviderProps) {
 
     // initial user state. if storage exist data then return stored data else return default
     const [authState, setAuthState] = useState<AuthState | null>(() => {
-        const storeData = localStorage.getItem("persist.auth")
+        const storeData = localStorage.getItem(AUTH_STORE_KEY)
 
         if (storeData && JSON.parse(storeData)) {
             return JSON.parse(storeData) as AuthState
@@ -31,9 +33,7 @@ export default function AuthProvider({ children }: ContextProviderProps) {
 
         return {
             isLogged: false,
-            profile: null,
-            session: null,
-            token: null
+            profile: null
         }
 
     })
@@ -42,26 +42,36 @@ export default function AuthProvider({ children }: ContextProviderProps) {
     const login = useCallback(async (token: string) => {
         try {
             //  if api was called then it would not call again
-            callGetSession = callGetSession !== null ? callGetSession : lastFmService.auth.getSession(token)
-            let session = (await callGetSession).data.session
+            callGetSession = callGetSession !== null ? callGetSession : apiServices.auth.getToken(token)
 
-            // get profile
-            let profile = (await lastFmService.user.getInfo(session.name)).data.user
+            let data = (await callGetSession).data
 
-            // save data to storage and state
-            const authData = {
+            let me = (await apiServices.auth.getProfile({
+                headers: {
+                    Authorization: `${data.token_type} ${data.access_token}`
+                }
+            })).data
+
+
+            const authData: AuthState = {
                 isLogged: true,
-                profile: profile,
-                session: session,
-                token: token
+                profile: me
             }
 
-            localStorage.setItem("persist.auth", JSON.stringify(authData))
+            const tokens: TokenStorage = {
+                access_token: data.access_token,
+                refresh_token: data.refresh_token,
+                token_type: data.token_type
+            }
+
+            localStorage.setItem(AUTH_STORE_KEY, JSON.stringify(authData))
+            localStorage.setItem(TOKEN_STORE_KEY, JSON.stringify(tokens))
+
             setAuthState(authData)
 
             // reset call data
             callGetSession = null
-            return Promise.resolve({ session, profile })
+            return Promise.resolve({})
         } catch (error: any) {
             callGetSession = null
             return Promise.reject(error)
@@ -73,17 +83,20 @@ export default function AuthProvider({ children }: ContextProviderProps) {
     const logout = useCallback(() => {
         const authData = {
             isLogged: false,
-            profile: null,
-            session: null,
-            token: null
+            profile: null
         }
-        localStorage.setItem("persist.auth", JSON.stringify(authData))
+        localStorage.setItem(AUTH_STORE_KEY, JSON.stringify(authData))
+        localStorage.removeItem(TOKEN_STORE_KEY)
         setAuthState(authData)
     }, [])
 
 
     const isAuthenticated = useCallback(() => {
-        return authState?.isLogged && authState.session !== null ? true : false
+        const tokenStore = localStorage.getItem(TOKEN_STORE_KEY)
+        if (!tokenStore || !JSON.parse(tokenStore)) return false
+        const tokens = JSON.parse(tokenStore) as TokenStorage
+
+        return authState?.isLogged && tokens.refresh_token !== null ? true : false
     }, [authState])
 
     return (

@@ -1,11 +1,12 @@
 import classNames from 'classnames'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import Wrapper from '../Wrapper/Wrapper'
 import { RiHeartLine, RiLoginCircleLine, RiLogoutCircleLine, RiMenu3Line, RiSearch2Line, RiSettingsLine, RiUser3Line } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 import { useSidebar } from '../../contexts/SidebarContext'
 import { useAuth } from '../../contexts/AuthContext'
 import configs from '../../services/apiConfig'
+import createAvatarUrl from '../../utils/createAvatarUrl'
 
 type Props = {}
 
@@ -46,6 +47,10 @@ const UserMenu = () => {
     const [activeDrop, setActiveDrop] = useState<boolean>(false)
     const dropRef = useRef<HTMLDivElement>(null)
 
+    const avatar = useMemo(() => {
+        return createAvatarUrl(auth.auth?.profile?.display_name || "N/A")
+    }, [auth.auth])
+
     // handle click outside
     useEffect(() => {
 
@@ -65,7 +70,6 @@ const UserMenu = () => {
     }, [])
 
     const handleLogin = () => {
-        window.open(`https://www.last.fm/api/auth?api_key=${configs.api_key}&cb=${import.meta.env.VITE_WEB_URL}/auth`, "_self")
     }
 
 
@@ -81,19 +85,25 @@ const UserMenu = () => {
     return (
         <div ref={dropRef} className={classNames('relative group', { active: activeDrop })}>
             <div className='flex items-center cursor-pointer' onClick={() => setActiveDrop(prev => !prev)}>
-                <img className='rounded-full w-8 h-8 object-cover' src={auth.auth?.profile?.image[1]['#text'] || auth.auth?.profile?.image[0]['#text'] || "/images/avatar.jpg"} alt={auth.auth?.profile?.realname || "avatar"} />
-                <span className='pl-2 text-sm hidden xs:inline'>{auth.auth?.profile?.realname || ""}</span>
+                <img className='rounded-full w-8 h-8 object-cover'
+                    src={auth.auth?.profile?.images && auth.auth.profile.images.length > 0 ? auth.auth?.profile?.images[0].url : avatar}
+                    alt={auth.auth?.profile?.display_name || "avatar"} />
+                <span className='pl-2 text-sm hidden xs:inline'>{auth.auth?.profile?.display_name || "N/A"}</span>
             </div>
             {/* drop content */}
             <div className='hidden group-[.active]:block absolute top-[calc(100%_+_4px)] right-0 text-body-color bg-white shadow-md w-[224px] rounded-md py-2'>
                 {/* user name */}
+
                 <div className='flex px-4 py-2 items-center gap-x-3'>
-                    <img className='w-12 h-12 rounded-full object-cover' src={auth.auth?.profile?.image[1]['#text'] || auth.auth?.profile?.image[0]['#text'] || "/images/avatar.jpg"} alt={auth.auth?.profile?.realname || "avatar"} />
-                    <div>
-                        <div className='text-sm font-medium text-color-text'>{auth.auth?.profile?.realname || ""}</div>
-                        <div className='text-[13px] text-[#737578]'>{auth.auth?.profile?.type || ""}</div>
+                    <img className='w-12 h-12 rounded-full object-cover'
+                        src={auth.auth?.profile?.images && auth.auth.profile.images.length > 0 ? auth.auth?.profile?.images[0].url : avatar}
+                        alt={auth.auth?.profile?.display_name || "avatar"} />
+                    <div className='w-[calc(100%_-_3rem)]'>
+                        <div className='text-sm font-medium text-color-text'>{auth.auth?.profile?.display_name || "N/A"}</div>
+                        <div className='text-[13px] text-[#737578] w-full text-ellipsis whitespace-nowrap overflow-hidden'>{auth.auth?.profile?.email || ""}</div>
                     </div>
                 </div>
+
                 {/* user option */}
                 <div className='w-full border-t border-[#eff2f5] my-2'></div>
                 <Link to={"#"} className='flex gap-x-2 py-1.5 px-4 hover:bg-[#eff2f5] transition-all duration-300'>
